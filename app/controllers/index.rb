@@ -8,6 +8,10 @@ def username
   return session[:username]
 end
 
+get '/logout' do
+  session.clear
+end
+
 
 get '/' do
 #   @decks = Deck.all
@@ -36,23 +40,31 @@ post '/login' do
   end
 end
 
-post '/homepage' do  
+get '/homepage' do
+  @deck = Deck.all
   erb :homepage
 end
 
 get '/deck' do  
-
+  @deck = Deck.find(params[:id])
+  @card = @deck.cards[rand]
   erb :deck
 end
 
-post '/deck' do
-  round = Round.create
-end
+# post '/deck' do
+#   round = Round.create
+# end
 
-
+get '/deck/:id' do
+  @deck = Deck.find(params[:id])
+  @card = @deck.cards.first
+  puts @card
+  erb :start
+end  
+  
 post '/start' do
-  @cards = Card.all
-  puts @cards
+  @deck = Deck.find(params[:id])
+  @card = @deck.cards[rand]
   erb :start
 end
   

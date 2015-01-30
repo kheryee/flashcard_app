@@ -2,5 +2,7 @@
 <h1>Flashy - Your best languange learning buddy.</h1><br>
 
 Select a deck from the following to play:<br><br>
-<a href="/deck">English-German</a>
+<% @deck.each do |x| %>
+<a href="/deck/<%= x.id %>"><%= x.name %></a><br>
+<% end %>
 
